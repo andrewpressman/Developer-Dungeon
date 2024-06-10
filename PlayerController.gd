@@ -4,11 +4,11 @@ extends CharacterBody2D
 @export var BaseSpeed : int = 200
 @export var DashSpeed: int = 800
 
-@export var BaseAcceleration : float = 0.1
-@export var Basefriction : float = 0.01
+@export var BaseAcceleration : float = 1
+@export var Basefriction : float = 1
 
-@export var DashAcceleration : float = 0.5
-@export var Dashfriction : float = 0.01
+@export var DashAcceleration : float = 0.2
+@export var Dashfriction : float = 0.1
 
 var currSpeed : int
 var currAccel : float
@@ -64,8 +64,13 @@ func Dash(delta):
 
 #dash cooldown
 func ResetDash():
-	dash_used = false
+	$DashCooldown.start()
 	currSpeed = BaseSpeed
+	currAccel  = BaseAcceleration
+	currFriction  = Basefriction
+
+func DashCooldown():
+	dash_used = false
 
 #check if player colldies with another object
 func CheckCollision(delta):

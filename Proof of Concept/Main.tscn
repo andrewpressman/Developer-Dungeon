@@ -8,7 +8,7 @@
 script = ExtResource("1_q7ipu")
 
 [node name="Player" parent="." instance=ExtResource("1_ixhf7")]
-position = Vector2(0, -1)
+position = Vector2(406, 33)
 
 [node name="Enemy" parent="." instance=ExtResource("2_8fbhv")]
 position = Vector2(770, -419)
@@ -19,21 +19,21 @@ position = Vector2(770, -419)
 position = Vector2(-640, -330)
 
 [node name="ColorRect" type="ColorRect" parent="Walls/StaticBody2D"]
-offset_left = 374.0
-offset_top = -283.0
-offset_right = 435.0
-offset_bottom = 918.0
+offset_left = -188.0
+offset_top = -307.0
+offset_right = -127.0
+offset_bottom = 943.0
 color = Color(0, 0, 0, 1)
 
 [node name="ColorRect2" type="ColorRect" parent="Walls/StaticBody2D"]
-offset_left = -120.0
+offset_left = -190.0
 offset_top = 883.0
 offset_right = 1539.0
 offset_bottom = 970.0
 color = Color(0, 0, 0, 1)
 
 [node name="ColorRect4" type="ColorRect" parent="Walls/StaticBody2D"]
-offset_left = 382.0
+offset_left = -167.0
 offset_top = -321.0
 offset_right = 1613.0
 offset_bottom = -234.0
@@ -48,4 +48,10 @@ color = Color(0, 0, 0, 1)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Walls/StaticBody2D"]
 position = Vector2(-84, -234)
-polygon = PackedVector2Array(518, 1, 1628, -6, 1630, 1117, -25, 1105, 9, 1193, 1716, 1208, 1704, -114, 468, -80, 445, 1087, 518, 1103)
+polygon = PackedVector2Array(-36, -6, 1628, -6, 1630, 1117, -127, 1118, 9, 1193, 1716, 1208, 1704, -114, 461, -87, -117, -83, -130, 1097, -42, 1097)
+
+[node name="SpawnerClock" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[connection signal="timeout" from="SpawnerClock" to="." method="spawn"]
