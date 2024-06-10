@@ -89,5 +89,7 @@ func CheckCollision(delta):
 func BasicEnemy(enemy : RigidBody2D):
 	if currSpeed == DashSpeed:
 		enemy.kill()
+	else:
+		enemy.reverseMove()
 
 

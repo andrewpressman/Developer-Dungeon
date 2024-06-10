@@ -1,17 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://2fg4cqxxdfw1"]
+[gd_scene load_steps=3 format=3 uid="uid://2fg4cqxxdfw1"]
 
 [ext_resource type="PackedScene" uid="uid://b8eev8on1b5wn" path="res://Proof of Concept/player.tscn" id="1_ixhf7"]
 [ext_resource type="Script" path="res://Proof of Concept/Controller.gd" id="1_q7ipu"]
-[ext_resource type="PackedScene" uid="uid://msu38tj15mbp" path="res://Proof of Concept/Enemy.tscn" id="2_8fbhv"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_q7ipu")
 
 [node name="Player" parent="." instance=ExtResource("1_ixhf7")]
-position = Vector2(406, 33)
-
-[node name="Enemy" parent="." instance=ExtResource("2_8fbhv")]
-position = Vector2(770, -419)
+position = Vector2(-11, -165)
 
 [node name="Walls" type="Node" parent="."]
 

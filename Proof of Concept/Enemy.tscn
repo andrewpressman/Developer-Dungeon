@@ -7,6 +7,7 @@
 size = Vector2(45, 60)
 
 [node name="StaticBody2D" type="RigidBody2D"]
+mass = 0.5
 gravity_scale = 0.0
 can_sleep = false
 script = ExtResource("1_0jebl")
@@ -20,4 +21,8 @@ texture = ExtResource("1_k5trl")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_8w4lg")
 
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="resumeChase"]
