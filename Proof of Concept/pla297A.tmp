@@ -9,6 +9,7 @@ radius = 314.602
 [node name="Player" type="CharacterBody2D"]
 scale = Vector2(0.162109, 0.144531)
 script = ExtResource("2_3tgtk")
+speed = 500
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_s2wwf")
@@ -21,6 +22,5 @@ position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 
 [node name="Dash" type="Timer" parent="."]
-one_shot = true
 
 [connection signal="timeout" from="Dash" to="." method="ResetDash"]

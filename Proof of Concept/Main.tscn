@@ -1,13 +1,30 @@
-[gd_scene load_steps=3 format=3 uid="uid://2fg4cqxxdfw1"]
+[gd_scene load_steps=4 format=3 uid="uid://2fg4cqxxdfw1"]
 
 [ext_resource type="PackedScene" uid="uid://b8eev8on1b5wn" path="res://Proof of Concept/player.tscn" id="1_ixhf7"]
 [ext_resource type="PackedScene" uid="uid://msu38tj15mbp" path="res://Proof of Concept/Obstacle.tscn" id="2_8fbhv"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0xqdq"]
+size = Vector2(61, 497)
+
 [node name="Node2D" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_ixhf7")]
-position = Vector2(536, 330)
-speed = 200
 
 [node name="StaticBody2D" parent="." instance=ExtResource("2_8fbhv")]
-position = Vector2(779, 332)
+position = Vector2(294, -125)
+
+[node name="Walls" type="Node" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Walls"]
+position = Vector2(-273, -179)
+
+[node name="ColorRect" type="ColorRect" parent="Walls/StaticBody2D"]
+offset_top = -60.0
+offset_right = 61.0
+offset_bottom = 434.0
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D"]
+position = Vector2(34, 185)
+shape = SubResource("RectangleShape2D_0xqdq")
