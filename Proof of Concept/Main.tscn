@@ -1,30 +1,51 @@
 [gd_scene load_steps=4 format=3 uid="uid://2fg4cqxxdfw1"]
 
 [ext_resource type="PackedScene" uid="uid://b8eev8on1b5wn" path="res://Proof of Concept/player.tscn" id="1_ixhf7"]
-[ext_resource type="PackedScene" uid="uid://msu38tj15mbp" path="res://Proof of Concept/Obstacle.tscn" id="2_8fbhv"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0xqdq"]
-size = Vector2(61, 497)
+[ext_resource type="Script" path="res://Proof of Concept/Controller.gd" id="1_q7ipu"]
+[ext_resource type="PackedScene" uid="uid://msu38tj15mbp" path="res://Proof of Concept/Enemy.tscn" id="2_8fbhv"]
 
 [node name="Node2D" type="Node2D"]
+script = ExtResource("1_q7ipu")
 
 [node name="Player" parent="." instance=ExtResource("1_ixhf7")]
+position = Vector2(0, -1)
 
-[node name="StaticBody2D" parent="." instance=ExtResource("2_8fbhv")]
-position = Vector2(294, -125)
+[node name="Enemy" parent="." instance=ExtResource("2_8fbhv")]
+position = Vector2(786, -433)
 
 [node name="Walls" type="Node" parent="."]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Walls"]
-position = Vector2(-273, -179)
+position = Vector2(-640, -330)
 
 [node name="ColorRect" type="ColorRect" parent="Walls/StaticBody2D"]
-offset_top = -60.0
-offset_right = 61.0
-offset_bottom = 434.0
+offset_left = -122.0
+offset_top = -321.0
+offset_right = -61.0
+offset_bottom = 880.0
 color = Color(0, 0, 0, 1)
-metadata/_edit_use_anchors_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D"]
-position = Vector2(34, 185)
-shape = SubResource("RectangleShape2D_0xqdq")
+[node name="ColorRect2" type="ColorRect" parent="Walls/StaticBody2D"]
+offset_left = -120.0
+offset_top = 883.0
+offset_right = 1539.0
+offset_bottom = 970.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect4" type="ColorRect" parent="Walls/StaticBody2D"]
+offset_left = -74.0
+offset_top = -321.0
+offset_right = 1613.0
+offset_bottom = -234.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect3" type="ColorRect" parent="Walls/StaticBody2D"]
+offset_left = 1535.0
+offset_top = -238.0
+offset_right = 1608.0
+offset_bottom = 977.0
+color = Color(0, 0, 0, 1)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Walls/StaticBody2D"]
+position = Vector2(-84, -234)
+polygon = PackedVector2Array(23, 2, 1628, -6, 1630, 1117, -25, 1105, -134, 1307, 1818, 1288, 1799, -215, -209, -251, -265, 1095, 23, 1095)

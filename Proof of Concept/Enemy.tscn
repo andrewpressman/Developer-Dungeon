@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://msu38tj15mbp"]
+
+[ext_resource type="Script" path="res://Proof of Concept/Enemy.gd" id="1_0jebl"]
+[ext_resource type="Texture2D" uid="uid://v13caskimeym" path="res://Assets/SubjectRecolor.png" id="1_k5trl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8w4lg"]
+size = Vector2(45, 60)
+
+[node name="StaticBody2D" type="RigidBody2D"]
+gravity_scale = 0.0
+script = ExtResource("1_0jebl")
+metadata/ID = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0.5, 0)
+scale = Vector2(0.295, 0.2975)
+texture = ExtResource("1_k5trl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_8w4lg")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
