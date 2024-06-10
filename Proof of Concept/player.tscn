@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://b8eev8on1b5wn"]
+
+[ext_resource type="Texture2D" uid="uid://drvyk7pojruqo" path="res://Assets/Monster_Recolor.png" id="1_krp3h"]
+[ext_resource type="Script" path="res://PlayerController.gd" id="2_3tgtk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s2wwf"]
+radius = 314.602
+
+[node name="Player" type="CharacterBody2D"]
+scale = Vector2(0.162109, 0.144531)
+script = ExtResource("2_3tgtk")
+speed = 500
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_s2wwf")
+
+[node name="CharacterBody2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_krp3h")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0

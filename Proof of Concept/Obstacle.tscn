@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://msu38tj15mbp"]
+
+[ext_resource type="Texture2D" uid="uid://v13caskimeym" path="res://Assets/SubjectRecolor.png" id="1_k5trl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8w4lg"]
+size = Vector2(152, 198)
+
+[node name="StaticBody2D" type="StaticBody2D"]
+metadata/ID = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_k5trl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_8w4lg")
