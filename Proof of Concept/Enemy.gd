@@ -1,7 +1,7 @@
 extends RigidBody2D
 
-#chase speed
-@export var ChaseSpeed : int = 50
+#multiplier to change the chase speed
+@export var ChaseSpeed : int = 1
 
 #plyaer
 var player : CharacterBody2D
@@ -10,9 +10,12 @@ var player : CharacterBody2D
 func _ready():
 	player = get_node("/root/Node2D/Player")
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if player:
-		var Direction = (player.position - position).normalized()
-		position += Direction * ChaseSpeed * delta
+		var motion = Vector2.ZERO
+		motion += position.direction_to(player.position) * ChaseSpeed
+		motion = move_and_collide(motion)
+
+func kill():
+	queue_free()

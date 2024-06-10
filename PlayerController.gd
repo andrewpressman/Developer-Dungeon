@@ -1,10 +1,19 @@
 extends CharacterBody2D
 
 #movement speed
-@export var BaseSpeed : int = 500
+@export var BaseSpeed : int = 200
 @export var DashSpeed: int = 800
 
+@export var BaseAcceleration : float = 0.1
+@export var Basefriction : float = 0.01
+
+@export var DashAcceleration : float = 0.5
+@export var Dashfriction : float = 0.01
+
 var currSpeed : int
+var currAccel : float
+var currFriction: float
+
 var collision_detected : bool = false
 var dash_used : bool
 var dash_cooldown : Timer
@@ -13,28 +22,31 @@ var dash_cooldown : Timer
 func _ready():
 	dash_used = false
 	currSpeed = BaseSpeed
+	currAccel = BaseAcceleration
+	currFriction = Basefriction
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	var velocity = Vector2.ZERO	
-	
+func GetInput():
+	var input = Vector2()
 	#movement controls
 	if Input.is_action_pressed("ui_right"):
-		velocity.x += 1
+		input.x += 1
 	if Input.is_action_pressed("ui_left"):
-		velocity.x -= 1
+		input.x -= 1
 	if Input.is_action_pressed("ui_down"):
-		velocity.y += 1
+		input.y += 1
 	if Input.is_action_pressed("ui_up"):
-		velocity.y -= 1	
+		input.y -= 1	
 	
-	#normalize velocity
-	if velocity.length() > 0:
-		velocity = velocity.normalized() * currSpeed
-	
-	#move player
-	position += velocity * delta
+	return input	
+		
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	var direction = GetInput()
+	if direction.length() > 0:
+		velocity = velocity.lerp(direction.normalized() * currSpeed, currAccel)
+	else:
+		velocity = velocity.lerp(Vector2.ZERO, currFriction)
+	move_and_slide()
 	
 	#abilities
 	if Input.is_action_just_pressed("ui_space") && dash_used == false :
@@ -47,6 +59,8 @@ func Dash(delta):
 	dash_used = true
 	$Dash.start()
 	currSpeed = DashSpeed
+	currAccel  = DashAcceleration
+	currFriction  = Dashfriction
 
 #dash cooldown
 func ResetDash():
@@ -58,8 +72,17 @@ func CheckCollision(delta):
 	var collision = move_and_collide(velocity * delta)
 	if collision:
 		collision_detected = true
+		match(collision.get_collider().get_meta("ID")):
+			1:
+				BasicEnemy(collision.get_collider())
+			
 		#Trigger action
 		#print("Collision detected with: ", collision.get_collider().get_meta("ID"))
 	else:
 		collision_detected = false
+
+func BasicEnemy(enemy : RigidBody2D):
+	if currSpeed == DashSpeed:
+		enemy.kill()
+
 

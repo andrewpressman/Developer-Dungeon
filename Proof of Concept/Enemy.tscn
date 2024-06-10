@@ -8,6 +8,7 @@ size = Vector2(45, 60)
 
 [node name="StaticBody2D" type="RigidBody2D"]
 gravity_scale = 0.0
+can_sleep = false
 script = ExtResource("1_0jebl")
 metadata/ID = 1
 
