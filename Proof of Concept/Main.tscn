@@ -12,7 +12,7 @@ position = Vector2(-11, -165)
 [node name="Walls" type="Node" parent="."]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Walls"]
-position = Vector2(-640, -330)
+position = Vector2(-683, -335)
 
 [node name="ColorRect" type="ColorRect" parent="Walls/StaticBody2D"]
 offset_left = -188.0
@@ -44,7 +44,14 @@ color = Color(0, 0, 0, 1)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Walls/StaticBody2D"]
 position = Vector2(-84, -234)
-polygon = PackedVector2Array(-36, -6, 1628, -6, 1630, 1117, -127, 1118, 9, 1193, 1716, 1208, 1704, -114, 461, -87, -117, -83, -130, 1097, -42, 1097)
+polygon = PackedVector2Array(-42, -5, 1628, -6, 1630, 1117, -127, 1118, 9, 1193, 1716, 1208, 1704, -114, 461, -87, -117, -83, -130, 1097, -42, 1097)
+
+[node name="ColorRect5" type="ColorRect" parent="Walls/StaticBody2D"]
+offset_left = 1449.0
+offset_top = 813.0
+offset_right = 1489.0
+offset_bottom = 853.0
+metadata/_edit_use_anchors_ = true
 
 [node name="SpawnerClock" type="Timer" parent="."]
 wait_time = 3.0
