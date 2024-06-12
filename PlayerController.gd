@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-#movement speed
+#movement variables(balance feel here) 
 @export var BaseSpeed : int = 200
 @export var DashSpeed: int = 800
 
@@ -10,22 +10,30 @@ extends CharacterBody2D
 @export var DashAcceleration : float = 0.2
 @export var Dashfriction : float = 0.1
 
+@export var TrapReduction : int = 4
+
+#current values (changed by code)
 var currSpeed : int
 var currAccel : float
 var currFriction: float
 
 var collision_detected : bool = false
+
+
 var dash_used : bool
 var dash_cooldown : Timer
-var CurrHealth : int = 1
+var dash_available : bool
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	dash_used = false
+	dash_available = true
 	currSpeed = BaseSpeed
 	currAccel = BaseAcceleration
 	currFriction = Basefriction
 	
+func SetCamera():
+	$Camera2D.make_current()
 
 func GetInput():
 	var input = Vector2()
@@ -52,13 +60,13 @@ func _process(delta):
 	move_and_slide()
 	
 	#abilities
-	if (Input.is_action_just_pressed("ui_space") || Input.is_action_just_pressed("gamepad_a")) && dash_used == false :
+	if (Input.is_action_just_pressed("ui_space") || Input.is_action_just_pressed("gamepad_a")) && (dash_used == false && dash_available == true) :
 		Dash(delta)
 	
 	CheckCollision(delta)
 	
 func CheckArmor():
-	if CurrHealth > 0:
+	if GlobalVariables.CurrHealth > 0:
 		$Armor.visible = true
 	else:
 		$Armor.visible = false	
@@ -81,7 +89,7 @@ func ResetDash():
 func DashCooldown():
 	dash_used = false
 
-#check if player colldies with another object
+#check if player colldies with another object/enemy
 func CheckCollision(delta):
 	var collision = move_and_collide(velocity * delta)
 	if collision:
@@ -91,18 +99,25 @@ func CheckCollision(delta):
 				BasicEnemy(collision.get_collider())
 			2:
 				ArmorPickup(collision.get_collider())
-			
 		#Trigger action
 		#print("Collision detected with: ", collision.get_collider().get_meta("ID"))
 	else:
 		collision_detected = false
+	
+func TrapEntered():
+	dash_available = false
+	currSpeed /= TrapReduction
+	
+func TrapExited():
+	dash_available = true
+	currSpeed = BaseSpeed
 
 func ArmorPickup(Pickup):
-	CurrHealth += 1
+	GlobalVariables.CurrHealth += 1
 	Pickup.kill()
 
 func BasicEnemy(enemy : RigidBody2D):
-	CurrHealth -= 1
+	GlobalVariables.CurrHealth -= 1
 	if currSpeed == DashSpeed:
 		enemy.kill()
 	else:

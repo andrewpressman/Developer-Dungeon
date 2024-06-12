@@ -1,5 +1,7 @@
-var CurrHealth : int
+extends Node
 
+var CurrHealth : int
+var BaseHealth : int = 5
 
 var Score : int
 
