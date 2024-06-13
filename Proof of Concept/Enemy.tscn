@@ -3,26 +3,27 @@
 [ext_resource type="Script" path="res://Proof of Concept/Enemy.gd" id="1_0jebl"]
 [ext_resource type="Texture2D" uid="uid://v13caskimeym" path="res://Assets/SubjectRecolor.png" id="1_k5trl"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8w4lg"]
-size = Vector2(45, 60)
+[sub_resource type="CircleShape2D" id="CircleShape2D_ew6f6"]
+radius = 35.0143
 
 [node name="StaticBody2D" type="RigidBody2D"]
 mass = 0.5
 gravity_scale = 0.0
 can_sleep = false
+lock_rotation = true
 script = ExtResource("1_0jebl")
 metadata/ID = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0.5, 0)
-scale = Vector2(0.295, 0.2975)
+position = Vector2(1.5, -2.125)
+scale = Vector2(0.305, 0.31875)
 texture = ExtResource("1_k5trl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_8w4lg")
+shape = SubResource("CircleShape2D_ew6f6")
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="." to="." method="reverseMove"]
 [connection signal="timeout" from="Timer" to="." method="resumeChase"]

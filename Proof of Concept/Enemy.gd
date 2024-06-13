@@ -1,11 +1,13 @@
 extends RigidBody2D
 
 #multiplier to change the chase/retreat speed
-@export var ChaseSpeed : int = 1
-@export var FleeSpeed : int = 5
+@export var ChaseSpeed : int = 5
+@export var FleeSpeed : int = 10
 
 #plyaer
 var player : CharacterBody2D
+var LastCollision
+var CurrentCollision
 
 #True: move towards player, false; move away from player
 var ChaseMode : bool
@@ -16,22 +18,25 @@ func _ready():
 	ChaseMode = true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	if player:
-		var motion = Vector2.ZERO
+func _physics_process(delta):
+	var motion = Vector2.ZERO
 		
-		if ChaseMode:
-			motion += position.direction_to(player.position) * ChaseSpeed
-		else:
-			motion += position.direction_to(player.position) * FleeSpeed
-			motion = -motion
+	if ChaseMode:
+		motion += position.direction_to(player.position) * ChaseSpeed
+	else:
+		motion += position.direction_to(player.position) * FleeSpeed
+		motion = -motion
 		
-		motion = move_and_collide(motion)
+	motion = move_and_collide(motion)
 
 
-func reverseMove():
-	ChaseMode = false
-	$Timer.start()
+func reverseMove(collision):
+	var CurrentCollision = collision
+	if CurrentCollision == LastCollision || CurrentCollision == null:
+		ChaseMode = false
+		$Timer.start()
+	
+	LastCollision = CurrentCollision
 
 func resumeChase():
 	ChaseMode = true

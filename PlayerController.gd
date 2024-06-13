@@ -17,12 +17,17 @@ var currSpeed : int
 var currAccel : float
 var currFriction: float
 
+
+#Collision deteced
 var collision_detected : bool = false
 
-
+#Dash variables
 var dash_used : bool
 var dash_cooldown : Timer
 var dash_available : bool
+
+#invulnerabilty
+var isInvuln : bool
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -31,6 +36,7 @@ func _ready():
 	currSpeed = BaseSpeed
 	currAccel = BaseAcceleration
 	currFriction = Basefriction
+	isInvuln = false
 	
 func SetCamera():
 	$Camera2D.make_current()
@@ -50,7 +56,7 @@ func GetInput():
 	return input	
 		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _physics_process(delta):
 	CheckArmor()
 	var direction = GetInput()
 	if direction.length() > 0:
@@ -117,10 +123,26 @@ func ArmorPickup(Pickup):
 	Pickup.kill()
 
 func BasicEnemy(enemy : RigidBody2D):
-	GlobalVariables.CurrHealth -= 1
-	if currSpeed == DashSpeed:
-		enemy.kill()
-	else:
-		enemy.reverseMove()
+	print("hit")
+	if !isInvuln:
+		GlobalVariables.CurrHealth -= 1
+		if currSpeed == DashSpeed:
+			enemy.kill()
+		else:
+			Reverse(enemy)
+
+func IFrames():
+	isInvuln = true
+	dash_available = false
+	$Iframes.start()
+	
+func resetInvuln():
+	isInvuln = false
+	dash_available = true
+
+func Reverse(enemy : RigidBody2D):
+	var motion = position.direction_to(enemy.position)
+	motion = -motion
+	motion = move_and_collide(motion)
 
 

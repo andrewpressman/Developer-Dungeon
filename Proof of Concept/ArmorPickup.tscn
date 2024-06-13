@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://Proof of Concept/ArmorPickup.gd" id="1_gu3gm"]
 [ext_resource type="Texture2D" uid="uid://ctl20qfdbqkg" path="res://Assets/TempShield.png" id="2_4klsv"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_b307r"]
-size = Vector2(264, 320)
+[sub_resource type="CircleShape2D" id="CircleShape2D_g1xb7"]
+radius = 168.428
 
 [node name="Pickup" type="StaticBody2D"]
 scale = Vector2(0.5, 0.5)
@@ -17,4 +17,4 @@ texture = ExtResource("2_4klsv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(0.5, 0.5)
-shape = SubResource("RectangleShape2D_b307r")
+shape = SubResource("CircleShape2D_g1xb7")
