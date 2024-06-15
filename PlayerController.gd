@@ -20,6 +20,7 @@ var currFriction: float
 
 #Collision deteced
 var collision_detected : bool = false
+var ReverseDirection : Vector2 = Vector2.ZERO
 
 #Dash variables
 var dash_used : bool
@@ -58,16 +59,24 @@ func GetInput():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	CheckArmor()
-	var direction = GetInput()
-	if direction.length() > 0:
-		velocity = velocity.lerp(direction.normalized() * currSpeed, currAccel)
-	else:
-		velocity = velocity.lerp(Vector2.ZERO, currFriction)
+	var direction
+	if isInvuln:
+		direction = ReverseDirection
+		if !dash_used:
+			velocity = velocity.lerp(Vector2.ZERO, currFriction)
+			Dash(delta, true)
+	else:	
+		direction = GetInput()
+		if direction.length() > 0:
+			velocity = velocity.lerp(direction.normalized() * currSpeed, currAccel)
+		else:
+			velocity = velocity.lerp(Vector2.ZERO, currFriction)
+	
 	move_and_slide()
 	
 	#abilities
-	if (Input.is_action_just_pressed("ui_space") || Input.is_action_just_pressed("gamepad_a")) && (dash_used == false && dash_available == true) :
-		Dash(delta)
+	if (Input.is_action_just_pressed("ui_space") || Input.is_action_just_pressed("gamepad_a")) && (dash_used == false && dash_available == true):
+		Dash(delta, false)
 	
 	CheckCollision(delta)
 	
@@ -78,12 +87,16 @@ func CheckArmor():
 		$Armor.visible = false	
 	
 #switch to dash speed and start timer
-func Dash(delta):
+#type = false : manual dash
+#type = true : auto dash
+func Dash(delta, type: bool):
 	dash_used = true
 	$Dash.start()
 	currSpeed = DashSpeed
-	currAccel  = DashAcceleration
-	currFriction  = Dashfriction
+	currAccel = DashAcceleration
+	currFriction = Dashfriction
+	if type:
+		velocity = velocity.lerp(ReverseDirection.normalized() * currSpeed, currAccel)
 
 #dash cooldown
 func ResetDash():
@@ -98,7 +111,7 @@ func DashCooldown():
 #check if player colldies with another object/enemy
 func CheckCollision(delta):
 	var collision = move_and_collide(velocity * delta)
-	if collision:
+	if collision && !isInvuln:
 		collision_detected = true
 		match(collision.get_collider().get_meta("ID")):
 			1:
@@ -109,7 +122,7 @@ func CheckCollision(delta):
 		#print("Collision detected with: ", collision.get_collider().get_meta("ID"))
 	else:
 		collision_detected = false
-	
+
 func TrapEntered():
 	dash_available = false
 	currSpeed /= TrapReduction
@@ -123,13 +136,14 @@ func ArmorPickup(Pickup):
 	Pickup.kill()
 
 func BasicEnemy(enemy : RigidBody2D):
-	print("hit")
 	if !isInvuln:
 		GlobalVariables.CurrHealth -= 1
 		if currSpeed == DashSpeed:
 			enemy.kill()
 		else:
 			Reverse(enemy)
+			enemy.reverseMove($Player)
+			IFrames()
 
 func IFrames():
 	isInvuln = true
@@ -141,8 +155,7 @@ func resetInvuln():
 	dash_available = true
 
 func Reverse(enemy : RigidBody2D):
-	var motion = position.direction_to(enemy.position)
-	motion = -motion
-	motion = move_and_collide(motion)
+	var direction = (enemy.position - position)
+	ReverseDirection = -direction
 
 

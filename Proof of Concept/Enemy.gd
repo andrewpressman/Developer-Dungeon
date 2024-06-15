@@ -2,7 +2,7 @@ extends RigidBody2D
 
 #multiplier to change the chase/retreat speed
 @export var ChaseSpeed : int = 5
-@export var FleeSpeed : int = 10
+@export var FleeSpeed : int = 7
 
 #plyaer
 var player : CharacterBody2D

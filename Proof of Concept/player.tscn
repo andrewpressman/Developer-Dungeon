@@ -6,7 +6,7 @@
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_q75ir"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_s2wwf"]
-radius = 326.94
+radius = 339.278
 
 [node name="Player" type="CharacterBody2D"]
 scale = Vector2(0.162109, 0.144531)
@@ -41,7 +41,9 @@ one_shot = true
 one_shot = true
 
 [node name="Iframes" type="Timer" parent="."]
+wait_time = 0.25
 one_shot = true
 
 [connection signal="timeout" from="Dash" to="." method="ResetDash"]
 [connection signal="timeout" from="DashCooldown" to="." method="DashCooldown"]
+[connection signal="timeout" from="Iframes" to="." method="resetInvuln"]
