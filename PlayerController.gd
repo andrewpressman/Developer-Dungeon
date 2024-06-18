@@ -59,13 +59,6 @@ func _physics_process(delta):
 			Dash(delta, true)
 	else:	
 		move(delta)
-		#direction = GetInput()
-		#if direction == Vector2.ZERO:
-		#	velocity = velocity.lerp(direction.normalized() * currSpeed, currAccel)
-		#else:
-		#	velocity = velocity.lerp(Vector2.ZERO, currFriction)
-	
-	#move_and_slide()
 	
 	#abilities
 	if (Input.is_action_just_pressed("ui_space") || Input.is_action_just_pressed("gamepad_a")) && (dash_used == false && dash_available == true):
@@ -75,13 +68,10 @@ func _physics_process(delta):
 
 func move(delta):
 	direction = GetInput()
-	
 	if direction == Vector2.ZERO:
 		applyFriction(currFriction * delta)
-	
 	else:
 		applyMovement(direction * currAccel * delta)
-		
 	move_and_slide()
 
 func applyFriction(amount):

@@ -1,7 +1,7 @@
 extends Node
 
 var CurrHealth : int
-var BaseHealth : int = 5
+var BaseHealth : int = 500
 
 var Score : int
 
