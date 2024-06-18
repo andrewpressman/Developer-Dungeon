@@ -1,16 +1,18 @@
 extends CharacterBody2D
 
 #movement variables(balance feel here) 
-@export var BaseSpeed : int = 200
-@export var DashSpeed: int = 800
+@export var BaseSpeed : int = 300
+@export var DashSpeed : int = 800
 
-@export var BaseAcceleration : float = 1
-@export var Basefriction : float = 1
+@export var BaseAcceleration : int = 1500
+@export var Basefriction  : int = 2000
 
-@export var DashAcceleration : float = 0.2
-@export var Dashfriction : float = 0.1
+@export var DashAcceleration : int = 2000
+@export var Dashfriction : int = 600
 
 @export var TrapReduction : int = 4
+
+@onready var direction = Vector2.ZERO
 
 #current values (changed by code)
 var currSpeed : int
@@ -42,42 +44,57 @@ func SetCamera():
 	$Camera2D.make_current()
 
 func GetInput():
-	var input = Vector2()
-	#movement controls
-	if Input.is_action_pressed("ui_right"):
-		input.x += 1
-	if Input.is_action_pressed("ui_left"):
-		input.x -= 1
-	if Input.is_action_pressed("ui_down"):
-		input.y += 1
-	if Input.is_action_pressed("ui_up"):
-		input.y -= 1	
-	
-	return input	
+	#movement controls	
+	direction.x = int(Input.is_action_pressed("ui_right")) - int(Input.is_action_pressed("ui_left"))
+	direction.y = int(Input.is_action_pressed("ui_down")) - int(Input.is_action_pressed("ui_up"))
+	return direction.normalized()	
 		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	CheckArmor()
-	var direction
 	if isInvuln:
 		direction = ReverseDirection
 		if !dash_used:
 			velocity = velocity.lerp(Vector2.ZERO, currFriction)
 			Dash(delta, true)
 	else:	
-		direction = GetInput()
-		if direction.length() > 0:
-			velocity = velocity.lerp(direction.normalized() * currSpeed, currAccel)
-		else:
-			velocity = velocity.lerp(Vector2.ZERO, currFriction)
+		move(delta)
+		#direction = GetInput()
+		#if direction == Vector2.ZERO:
+		#	velocity = velocity.lerp(direction.normalized() * currSpeed, currAccel)
+		#else:
+		#	velocity = velocity.lerp(Vector2.ZERO, currFriction)
 	
-	move_and_slide()
+	#move_and_slide()
 	
 	#abilities
 	if (Input.is_action_just_pressed("ui_space") || Input.is_action_just_pressed("gamepad_a")) && (dash_used == false && dash_available == true):
 		Dash(delta, false)
 	
 	CheckCollision(delta)
+
+func move(delta):
+	direction = GetInput()
+	
+	if direction == Vector2.ZERO:
+		applyFriction(currFriction * delta)
+	
+	else:
+		applyMovement(direction * currAccel * delta)
+		
+	move_and_slide()
+
+func applyFriction(amount):
+	if velocity.length() > amount:
+		velocity -= velocity.normalized() * amount
+		
+	else:
+		velocity = Vector2.ZERO
+		
+func applyMovement(accel):
+	velocity += accel
+	velocity = velocity.limit_length(currSpeed)
+	
 	
 func CheckArmor():
 	if GlobalVariables.CurrHealth > 0:
