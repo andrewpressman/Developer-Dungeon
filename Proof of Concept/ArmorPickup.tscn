@@ -6,7 +6,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_g1xb7"]
 radius = 168.428
 
-[node name="Pickup" type="StaticBody2D"]
+[node name="Pickup" type="Area2D"]
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_gu3gm")
 metadata/ID = 2
@@ -18,3 +18,5 @@ texture = ExtResource("2_4klsv")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(0.5, 0.5)
 shape = SubResource("CircleShape2D_g1xb7")
+
+[connection signal="body_entered" from="." to="." method="onPickup"]

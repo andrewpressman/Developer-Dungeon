@@ -29,7 +29,6 @@ func _physics_process(delta):
 
 	motion = move_and_collide(motion)
 
-
 func reverseMove(collision):
 	var CurrentCollision = collision
 	if CurrentCollision == LastCollision || CurrentCollision == null:

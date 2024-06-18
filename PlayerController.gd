@@ -2,13 +2,13 @@ extends CharacterBody2D
 
 #movement variables(balance feel here) 
 @export var BaseSpeed : int = 300
-@export var DashSpeed : int = 800
+@export var DashSpeed : int = 1000
 
 @export var BaseAcceleration : int = 1500
-@export var Basefriction  : int = 2000
+@export var Basefriction : int = 2000
 
 @export var DashAcceleration : int = 2000
-@export var Dashfriction : int = 600
+@export var Dashfriction : int = 0
 
 @export var TrapReduction : int = 4
 
@@ -55,14 +55,14 @@ func _physics_process(delta):
 	if isInvuln:
 		direction = ReverseDirection
 		if !dash_used:
-			velocity = velocity.lerp(Vector2.ZERO, currFriction)
-			Dash(delta, true)
+			velocity = velocity.lerp(ReverseDirection, 10)
+			Dash(delta)
 	else:	
 		move(delta)
 	
 	#abilities
 	if (Input.is_action_just_pressed("ui_space") || Input.is_action_just_pressed("gamepad_a")) && (dash_used == false && dash_available == true):
-		Dash(delta, false)
+		Dash(delta)
 	
 	CheckCollision(delta)
 
@@ -85,7 +85,6 @@ func applyMovement(accel):
 	velocity += accel
 	velocity = velocity.limit_length(currSpeed)
 	
-	
 func CheckArmor():
 	if GlobalVariables.CurrHealth > 0:
 		$Armor.visible = true
@@ -95,14 +94,12 @@ func CheckArmor():
 #switch to dash speed and start timer
 #type = false : manual dash
 #type = true : auto dash
-func Dash(delta, type: bool):
+func Dash(delta):
 	dash_used = true
 	$Dash.start()
 	currSpeed = DashSpeed
 	currAccel = DashAcceleration
 	currFriction = Dashfriction
-	if type:
-		velocity = velocity.lerp(ReverseDirection.normalized() * currSpeed, currAccel)
 
 #dash cooldown
 func ResetDash():
@@ -122,8 +119,6 @@ func CheckCollision(delta):
 		match(collision.get_collider().get_meta("ID")):
 			1:
 				BasicEnemy(collision.get_collider())
-			2:
-				ArmorPickup(collision.get_collider())
 		#Trigger action
 		#print("Collision detected with: ", collision.get_collider().get_meta("ID"))
 	else:
@@ -137,11 +132,11 @@ func TrapExited():
 	dash_available = true
 	currSpeed = BaseSpeed
 
-func ArmorPickup(Pickup):
+func ArmorPickup():
 	GlobalVariables.CurrHealth += 1
-	Pickup.kill()
 
 func BasicEnemy(enemy : RigidBody2D):
+	print("hit")
 	if !isInvuln:
 		GlobalVariables.CurrHealth -= 1
 		if currSpeed == DashSpeed:
