@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://btobj4s4yhmvx"]
+
+[ext_resource type="PackedScene" uid="uid://b8eev8on1b5wn" path="res://Proof of Concept/player.tscn" id="1_fucvp"]
+
+[node name="Hub" type="Node2D"]
+
+[node name="Doors" type="Node" parent="."]
+
+[node name="Walls" type="Node" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Walls"]
+
+[node name="Polygon2D" type="Polygon2D" parent="Walls/StaticBody2D"]
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(257, 151, 260, -786, 1311, -779, 1301, -2086, -1325, -2094, -1315, -821, -229, -796, -230, 152, -297, 158, -2630, 154, -2640, -3072, 3070, -3152, 3070, 612, -2653, 630, -2630, 154)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Walls/StaticBody2D"]
+position = Vector2(17, 3)
+polygon = PackedVector2Array(-241, 161, 236, 155, 236, -789, 1293, -780, 1283, -2085, -1348, -2096, -1327, -815, -247, -796, -242, 162, -305, 58, -325, -736, -1401, -753, -1421, -2176, 1414, -2173, 1434, -689, 321, -710, 332, 297, -295, 287, -318, 98)
+
+[node name="Player" parent="." instance=ExtResource("1_fucvp")]

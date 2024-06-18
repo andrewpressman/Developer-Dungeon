@@ -25,7 +25,7 @@ position = Vector2(18, 340)
 [node name="Walls" type="Node" parent="."]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Walls"]
-position = Vector2(-683, -335)
+position = Vector2(-646, -362)
 
 [node name="ColorRect" type="ColorRect" parent="Walls/StaticBody2D"]
 offset_left = -1861.0
@@ -42,7 +42,7 @@ offset_bottom = 2830.0
 color = Color(0, 0, 0, 1)
 
 [node name="ColorRect4" type="ColorRect" parent="Walls/StaticBody2D"]
-offset_left = -1921.0
+offset_left = -1850.0
 offset_top = -1893.0
 offset_right = 3377.0
 offset_bottom = -1806.0
@@ -52,13 +52,13 @@ color = Color(0, 0, 0, 1)
 offset_left = 3264.0
 offset_top = -1890.0
 offset_right = 3382.0
-offset_bottom = 2958.0
+offset_bottom = 2865.0
 color = Color(0, 0, 0, 1)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Walls/StaticBody2D"]
 position = Vector2(1226, 174)
 scale = Vector2(1.32497, 0.928843)
-polygon = PackedVector2Array(-2240.88, -2134.51, 1540.93, -2122.21, 1557.77, 2787.34, -2320.81, 2777.65, -2166.72, 3143.83, 1893.59, 3226.25, 1877.2, -2614.25, -2528, -2648.69, -2535.76, 2640.73, -2233.26, 2739.97)
+polygon = PackedVector2Array(-2227.97, -2117.69, 1540.93, -2122.21, 1557.77, 2787.34, -2320.81, 2777.65, -2340.43, 2912.23, 1643.06, 2902.54, 1635.51, -2218.89, -2332.88, -2228.58, -2317.79, 2756.12, -2238.54, 2757.19)
 
 [node name="Player" parent="." instance=ExtResource("1_ixhf7")]
 position = Vector2(-11, -165)

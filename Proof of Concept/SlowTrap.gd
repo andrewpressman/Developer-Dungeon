@@ -12,8 +12,8 @@ func _ready():
 func onTrapBodyEntered(body):
 	if body.name == "Player":
 		body.TrapEntered()
-		
+
 func onTrapBodyExited(body):
 	if body.name == "Player":
 		body.TrapExited()
-		
+

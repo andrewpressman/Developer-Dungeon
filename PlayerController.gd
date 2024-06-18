@@ -17,7 +17,6 @@ var currSpeed : int
 var currAccel : float
 var currFriction: float
 
-
 #Collision deteced
 var collision_detected : bool = false
 var ReverseDirection : Vector2 = Vector2.ZERO

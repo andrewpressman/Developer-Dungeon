@@ -27,7 +27,7 @@ func spawn():
 	add_child(e)
 	
 	var A = Armor.instantiate()
-	var X = randi_range(-100,1400)
-	var Y = randi_range(-200,800)
+	var X = randi_range(-100,100)
+	var Y = randi_range(-200,200)
 	A.position = Vector2(X,Y)
 	add_child(A)

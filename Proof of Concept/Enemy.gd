@@ -26,7 +26,7 @@ func _physics_process(delta):
 	else:
 		motion += position.direction_to(player.position) * FleeSpeed
 		motion = -motion
-		
+
 	motion = move_and_collide(motion)
 
 
@@ -35,7 +35,7 @@ func reverseMove(collision):
 	if CurrentCollision == LastCollision || CurrentCollision == null:
 		ChaseMode = false
 		$Timer.start()
-	
+
 	LastCollision = CurrentCollision
 
 func resumeChase():
