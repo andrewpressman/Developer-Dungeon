@@ -19,6 +19,8 @@ position = Vector2(-1075, -1048)
 script = ExtResource("2_twohm")
 Level = 1
 
+[node name="Sprite2D" type="Sprite2D" parent="Doors/Level1"]
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Doors/Level1"]
 shape = SubResource("CircleShape2D_0gk48")
 
@@ -37,4 +39,4 @@ polygon = PackedVector2Array(-241, 161, 236, 155, 236, -789, 1293, -780, 1283, -
 [node name="Player" parent="." instance=ExtResource("1_fucvp")]
 position = Vector2(-3, -199)
 
-[connection signal="area_entered" from="Doors/Level1" to="Doors/Level1" method="Teleport"]
+[connection signal="body_entered" from="Doors/Level1" to="Doors/Level1" method="Teleport"]

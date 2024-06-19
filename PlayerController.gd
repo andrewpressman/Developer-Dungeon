@@ -40,6 +40,12 @@ func _ready():
 	currFriction = Basefriction
 	isInvuln = false
 	
+	GlobalVariables.Score = 0
+	GlobalVariables.CurrHealth = GlobalVariables.BaseHealth
+	
+	$Camera2D/UI.updateScore()
+	$Camera2D/UI.updateArmor()
+	
 func SetCamera():
 	$Camera2D.make_current()
 
@@ -134,12 +140,14 @@ func TrapExited():
 
 func ArmorPickup():
 	GlobalVariables.CurrHealth += 1
+	$Camera2D/UI.updateArmor()
 
 func BasicEnemy(enemy : RigidBody2D):
-	print("hit")
 	if !isInvuln:
 		GlobalVariables.CurrHealth -= 1
 		if currSpeed == DashSpeed:
+			GlobalVariables.Score += 1
+			$Camera2D/UI.updateScore()
 			enemy.kill()
 		else:
 			Reverse(enemy)

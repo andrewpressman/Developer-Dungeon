@@ -18,7 +18,6 @@ func _process(delta):
 		$Camera2D.make_current()
 		print("dead")
 		
-
 	
 func spawn():
 	print("spawn")

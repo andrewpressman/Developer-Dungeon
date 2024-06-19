@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://b8eev8on1b5wn"]
+[gd_scene load_steps=6 format=3 uid="uid://b8eev8on1b5wn"]
 
 [ext_resource type="Texture2D" uid="uid://drvyk7pojruqo" path="res://Assets/Monster_Recolor.png" id="1_krp3h"]
 [ext_resource type="Script" path="res://PlayerController.gd" id="2_3tgtk"]
+[ext_resource type="PackedScene" uid="uid://ulexshywfy7u" path="res://Proof of Concept/UI.tscn" id="3_rjqsd"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_q75ir"]
 
@@ -32,6 +33,8 @@ texture = ExtResource("1_krp3h")
 zoom = Vector2(0.5, 0.5)
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
+
+[node name="UI" parent="Camera2D" instance=ExtResource("3_rjqsd")]
 
 [node name="Dash" type="Timer" parent="."]
 wait_time = 0.25
