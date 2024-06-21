@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://btobj4s4yhmvx"]
+[gd_scene load_steps=6 format=3 uid="uid://btobj4s4yhmvx"]
 
 [ext_resource type="Script" path="res://Hub World/Hub.gd" id="1_4elkb"]
 [ext_resource type="PackedScene" uid="uid://b8eev8on1b5wn" path="res://Proof of Concept/player.tscn" id="1_fucvp"]
 [ext_resource type="Script" path="res://Hub World/LevelDoor.gd" id="2_twohm"]
+[ext_resource type="PackedScene" uid="uid://doupdcryw0hvp" path="res://Proof of Concept/breakable_object.tscn" id="4_ju6p7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0gk48"]
 radius = 139.129
@@ -38,5 +39,8 @@ polygon = PackedVector2Array(-241, 161, 236, 155, 236, -789, 1293, -780, 1283, -
 
 [node name="Player" parent="." instance=ExtResource("1_fucvp")]
 position = Vector2(-3, -199)
+
+[node name="BreakableObject" parent="." instance=ExtResource("4_ju6p7")]
+position = Vector2(25, -767)
 
 [connection signal="body_entered" from="Doors/Level1" to="Doors/Level1" method="Teleport"]
