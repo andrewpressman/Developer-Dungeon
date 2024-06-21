@@ -2,17 +2,18 @@ extends CharacterBody2D
 
 #movement variables(balance feel here) 
 @export var BaseSpeed : int = 300
-@export var DashSpeed : int = 1000
+@export var DashSpeed : int = 3000
 
 @export var BaseAcceleration : int = 1500
-@export var Basefriction : int = 2000
+@export var Basefriction : int = 300
 
-@export var DashAcceleration : int = 2000
+@export var DashAcceleration : int = 3000
 @export var Dashfriction : int = 0
 
 @export var TrapReduction : int = 4
 
 @onready var direction = Vector2.ZERO
+@onready var CurrentDirection : Vector2
 
 #current values (changed by code)
 var currSpeed : int
@@ -30,6 +31,7 @@ var dash_available : bool
 
 #invulnerabilty
 var isInvuln : bool
+var MoveOverride : bool
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -39,7 +41,7 @@ func _ready():
 	currAccel = BaseAcceleration
 	currFriction = Basefriction
 	isInvuln = false
-	
+	$Camera2D/UI.visible = true
 	GlobalVariables.Score = 0
 	GlobalVariables.CurrHealth = GlobalVariables.BaseHealth
 	
@@ -51,8 +53,11 @@ func SetCamera():
 
 func GetInput():
 	#movement controls	
-	direction.x = int(Input.is_action_pressed("ui_right")) - int(Input.is_action_pressed("ui_left"))
-	direction.y = int(Input.is_action_pressed("ui_down")) - int(Input.is_action_pressed("ui_up"))
+	if !MoveOverride: 
+		direction.x = int(Input.is_action_pressed("ui_right")) - int(Input.is_action_pressed("ui_left"))
+		direction.y = int(Input.is_action_pressed("ui_down")) - int(Input.is_action_pressed("ui_up"))
+	if direction != Vector2.ZERO:
+		CurrentDirection = direction
 	return direction.normalized()	
 		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -61,10 +66,9 @@ func _physics_process(delta):
 	if isInvuln:
 		direction = ReverseDirection
 		if !dash_used:
-			velocity = velocity.lerp(ReverseDirection, 10)
 			Dash(delta)
 	else:	
-		move(delta)
+		move(delta, false)
 	
 	#abilities
 	if (Input.is_action_just_pressed("ui_space") || Input.is_action_just_pressed("gamepad_a")) && (dash_used == false && dash_available == true):
@@ -72,8 +76,13 @@ func _physics_process(delta):
 	
 	CheckCollision(delta)
 
-func move(delta):
-	direction = GetInput()
+#type = true : dash
+#type = false: normal move
+func move(delta, type):
+	if !type:
+		direction = GetInput()
+	else:
+		direction = CurrentDirection
 	if direction == Vector2.ZERO:
 		applyFriction(currFriction * delta)
 	else:
@@ -83,7 +92,6 @@ func move(delta):
 func applyFriction(amount):
 	if velocity.length() > amount:
 		velocity -= velocity.normalized() * amount
-		
 	else:
 		velocity = Vector2.ZERO
 		
@@ -98,21 +106,23 @@ func CheckArmor():
 		$Armor.visible = false	
 	
 #switch to dash speed and start timer
-#type = false : manual dash
-#type = true : auto dash
 func Dash(delta):
 	dash_used = true
+	MoveOverride = true
 	$Dash.start()
 	currSpeed = DashSpeed
 	currAccel = DashAcceleration
-	currFriction = Dashfriction
+	#currFriction = Dashfriction
+	move(delta,true)
 
 #dash cooldown
 func ResetDash():
 	$DashCooldown.start()
+	MoveOverride = false
 	currSpeed = BaseSpeed
 	currAccel  = BaseAcceleration
-	currFriction  = Basefriction
+	#currFriction  = Basefriction
+	velocity = velocity.limit_length(currSpeed)
 
 func DashCooldown():
 	dash_used = false
@@ -122,10 +132,10 @@ func CheckCollision(delta):
 	var collision = move_and_collide(velocity * delta)
 	if collision && !isInvuln:
 		collision_detected = true
-		match(collision.get_collider().get_meta("ID")):
-			1:
-				BasicEnemy(collision.get_collider())
-		#Trigger action
+		if collision.get_collider().has_meta("ID"):
+			match(collision.get_collider().get_meta("ID")):
+				1:
+					BasicEnemy(collision.get_collider())
 		#print("Collision detected with: ", collision.get_collider().get_meta("ID"))
 	else:
 		collision_detected = false

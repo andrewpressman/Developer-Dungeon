@@ -17,7 +17,7 @@ func _process(delta):
 		GameActive = false
 		$Camera2D.make_current()
 		print("dead")
-		
+	
 	
 func spawn():
 	print("spawn")
