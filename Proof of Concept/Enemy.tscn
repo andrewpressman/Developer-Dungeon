@@ -1,12 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://msu38tj15mbp"]
+[gd_scene load_steps=5 format=3 uid="uid://msu38tj15mbp"]
 
 [ext_resource type="Script" path="res://Proof of Concept/Enemy.gd" id="1_0jebl"]
 [ext_resource type="Texture2D" uid="uid://v13caskimeym" path="res://Assets/SubjectRecolor.png" id="1_k5trl"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_0lwea"]
+radius = 273.007
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_ew6f6"]
 radius = 43.0116
 
-[node name="StaticBody2D" type="RigidBody2D"]
+[node name="Enemy" type="RigidBody2D"]
+collision_layer = 3
+collision_mask = 3
 mass = 0.5
 gravity_scale = 0.0
 can_sleep = false
@@ -15,17 +20,25 @@ continuous_cd = 1
 script = ExtResource("1_0jebl")
 metadata/ID = 1
 
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_0lwea")
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(1.5, -2.125)
 scale = Vector2(0.305, 0.31875)
 texture = ExtResource("1_k5trl")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="HitBox" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_ew6f6")
+one_way_collision_margin = 5.0
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
 
-[connection signal="body_entered" from="." to="." method="reverseMove"]
+[connection signal="body_entered" from="Area2D" to="." method="Overlap"]
 [connection signal="timeout" from="Timer" to="." method="resumeChase"]

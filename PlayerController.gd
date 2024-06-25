@@ -13,7 +13,6 @@ extends CharacterBody2D
 @export var TrapReduction : int = 4
 
 @onready var direction = Vector2.ZERO
-@onready var CurrentDirection : Vector2
 
 #current values (changed by code)
 var currSpeed : int
@@ -57,12 +56,13 @@ func GetInput():
 		direction.x = int(Input.is_action_pressed("ui_right")) - int(Input.is_action_pressed("ui_left"))
 		direction.y = int(Input.is_action_pressed("ui_down")) - int(Input.is_action_pressed("ui_up"))
 	if direction != Vector2.ZERO:
-		CurrentDirection = direction
+		GlobalVariables.CurrentDirection = direction
 	return direction.normalized()	
 		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	CheckArmor()
+	CheckCollision(delta)
 	if isInvuln:
 		direction = ReverseDirection
 		if !dash_used:
@@ -73,8 +73,6 @@ func _physics_process(delta):
 	#abilities
 	if (Input.is_action_just_pressed("ui_space") || Input.is_action_just_pressed("gamepad_a")) && (dash_used == false && dash_available == true):
 		Dash(delta)
-	
-	CheckCollision(delta)
 
 #type = true : dash
 #type = false: normal move
@@ -82,7 +80,7 @@ func move(delta, type):
 	if !type:
 		direction = GetInput()
 	else:
-		direction = CurrentDirection
+		direction = GlobalVariables.CurrentDirection
 	if direction == Vector2.ZERO:
 		applyFriction(currFriction * delta)
 	else:

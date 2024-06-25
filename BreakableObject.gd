@@ -8,7 +8,6 @@ func _ready():
 
 func onEnter(body):
 	if body.name == "Player":
-		print("player")
 		if body.currSpeed == body.DashSpeed:
 			kill()
 

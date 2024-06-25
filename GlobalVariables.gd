@@ -13,3 +13,5 @@ var LEFT : StringName = "ui_left"
 var RIGHT : StringName = "ui_right"
 var DASH : StringName = "KEY_SPACE"
 
+#player Direction
+var CurrentDirection : Vector2

@@ -23,6 +23,7 @@ Level = 1
 [node name="Sprite2D" type="Sprite2D" parent="Doors/Level1"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Doors/Level1"]
+position = Vector2(-9, 5)
 shape = SubResource("CircleShape2D_0gk48")
 
 [node name="Walls" type="Node" parent="."]
@@ -41,6 +42,6 @@ polygon = PackedVector2Array(-241, 161, 236, 155, 236, -789, 1293, -780, 1283, -
 position = Vector2(-3, -199)
 
 [node name="BreakableObject" parent="." instance=ExtResource("4_ju6p7")]
-position = Vector2(25, -767)
+position = Vector2(581, -874)
 
 [connection signal="body_entered" from="Doors/Level1" to="Doors/Level1" method="Teleport"]

@@ -29,13 +29,20 @@ func _physics_process(delta):
 
 	motion = move_and_collide(motion)
 
+
 func reverseMove(collision):
 	var CurrentCollision = collision
 	if CurrentCollision == LastCollision || CurrentCollision == null:
 		ChaseMode = false
 		$Timer.start()
-
 	LastCollision = CurrentCollision
+
+#TODO: improve this logic
+func Overlap(body):
+	var motion = Vector2.ZERO
+	motion += position.direction_to(body.position) * FleeSpeed
+	motion = -motion
+	motion = move_and_collide(motion)
 
 func resumeChase():
 	ChaseMode = true
