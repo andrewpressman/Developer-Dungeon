@@ -1,13 +1,12 @@
 extends Node2D
 
 var Enemy = preload("res://Proof of Concept/Enemy.tscn")
-var Armor = preload("res://Proof of Concept/ArmorPickup.tscn")
+var Armor = preload("res://Proof of Concept/Pickup.tscn")
 
 var GameActive : bool
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$SpawnerClock.start()
 	$Player.SetCamera()
 	GlobalVariables.CurrHealth = GlobalVariables.BaseHealth
 	GameActive = true

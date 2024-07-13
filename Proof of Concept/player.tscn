@@ -17,8 +17,8 @@ floor_block_on_wall = false
 script = ExtResource("2_3tgtk")
 
 [node name="Armor" type="Sprite2D" parent="."]
-position = Vector2(-1.71661e-05, 3.45948)
-scale = Vector2(579.857, 560.433)
+position = Vector2(4.76837e-06, 10.3784)
+scale = Vector2(666.218, 684.974)
 texture = SubResource("PlaceholderTexture2D_6ofpf")
 
 [node name="CollisionBox" type="CollisionShape2D" parent="."]

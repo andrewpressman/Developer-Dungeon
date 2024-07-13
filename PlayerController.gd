@@ -32,6 +32,9 @@ var dash_available : bool
 var isInvuln : bool
 var MoveOverride : bool
 
+#key tracking TODO: add more keys??
+var HasKey : bool
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	dash_used = false
@@ -46,6 +49,8 @@ func _ready():
 	
 	$Camera2D/UI.updateScore()
 	$Camera2D/UI.updateArmor()
+	
+	HasKey = false
 	
 func SetCamera():
 	$Camera2D.make_current()
@@ -149,6 +154,10 @@ func TrapExited():
 func ArmorPickup():
 	GlobalVariables.CurrHealth += 1
 	$Camera2D/UI.updateArmor()
+
+func KeyPickup():
+	if !HasKey:
+		HasKey = true
 
 func BasicEnemy(enemy : RigidBody2D):
 	if !isInvuln:

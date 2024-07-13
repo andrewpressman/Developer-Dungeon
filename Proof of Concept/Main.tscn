@@ -9,7 +9,7 @@
 script = ExtResource("1_q7ipu")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(-4852, -3455)
+position = Vector2(-17, 2105)
 
 [node name="Label" type="Label" parent="Camera2D"]
 offset_left = -128.0
@@ -19,56 +19,81 @@ offset_bottom = -32.0
 text = "game over"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="Area2D" parent="." instance=ExtResource("3_gcfa5")]
-position = Vector2(18, 340)
+position = Vector2(-14, -1413)
 
 [node name="Walls" type="Node" parent="."]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Walls"]
 position = Vector2(-646, -362)
 
-[node name="ColorRect" type="ColorRect" parent="Walls/StaticBody2D"]
-offset_left = -1861.0
-offset_top = -1831.0
-offset_right = -1729.0
-offset_bottom = 2821.0
-color = Color(0, 0, 0, 1)
-
-[node name="ColorRect2" type="ColorRect" parent="Walls/StaticBody2D"]
-offset_left = -1758.0
-offset_top = 2743.0
-offset_right = 3368.0
-offset_bottom = 2830.0
-color = Color(0, 0, 0, 1)
-
-[node name="ColorRect4" type="ColorRect" parent="Walls/StaticBody2D"]
-offset_left = -1850.0
-offset_top = -1893.0
-offset_right = 3377.0
-offset_bottom = -1806.0
-color = Color(0, 0, 0, 1)
-
-[node name="ColorRect3" type="ColorRect" parent="Walls/StaticBody2D"]
-offset_left = 3264.0
-offset_top = -1890.0
-offset_right = 3382.0
-offset_bottom = 2865.0
-color = Color(0, 0, 0, 1)
-
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Walls/StaticBody2D"]
-position = Vector2(1226, 174)
-scale = Vector2(1.32497, 0.928843)
-polygon = PackedVector2Array(-2227.97, -2117.69, 1540.93, -2122.21, 1557.77, 2787.34, -2320.81, 2777.65, -2340.43, 2912.23, 1643.06, 2902.54, 1635.51, -2218.89, -2332.88, -2228.58, -2317.79, 2756.12, -2238.54, 2757.19)
+polygon = PackedVector2Array(1301, 1011, -44, 1016, -35, -1777, -776, -1777, -776, -3721, 2070, -3716, 2070, -1781, 1294, -1781, 1298, 895, 113, 877, 117, -1781, 189, -1777, 189, -1916, -624, -1916, -619, -3586, 1927, -3595, 1922, -1925, 1100, -1916, 1100, -1786, 1168, -1790, 1152, 892, 1298, 895)
+
+[node name="ColorRect" type="ColorRect" parent="Walls"]
+offset_left = -690.0
+offset_top = -2274.0
+offset_right = -540.0
+offset_bottom = 656.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="Walls"]
+offset_left = 501.0
+offset_top = -2277.0
+offset_right = 651.0
+offset_bottom = 650.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect6" type="ColorRect" parent="Walls"]
+offset_left = 1276.0
+offset_top = -3967.0
+offset_right = 1426.0
+offset_bottom = -2203.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect7" type="ColorRect" parent="Walls"]
+offset_left = -1420.0
+offset_top = -3951.0
+offset_right = -1270.0
+offset_bottom = -2187.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect3" type="ColorRect" parent="Walls"]
+offset_left = -690.0
+offset_top = 521.0
+offset_right = 651.0
+offset_bottom = 657.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect8" type="ColorRect" parent="Walls"]
+offset_left = -1420.0
+offset_top = -4078.0
+offset_right = 1426.0
+offset_bottom = -3942.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect4" type="ColorRect" parent="Walls"]
+offset_left = 452.0
+offset_top = -2277.0
+offset_right = 1426.0
+offset_bottom = -2141.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect5" type="ColorRect" parent="Walls"]
+offset_left = -1420.0
+offset_top = -2274.0
+offset_right = -456.0
+offset_bottom = -2138.0
+color = Color(0, 0, 0, 1)
 
 [node name="Player" parent="." instance=ExtResource("1_ixhf7")]
-position = Vector2(-11, -165)
 
 [node name="SpawnerClock" type="Timer" parent="."]
 wait_time = 3.0
-autostart = true
 
 [node name="BreakableObject" parent="." instance=ExtResource("4_3txdr")]
-position = Vector2(664, -127)
+position = Vector2(-1, -2198)
 
 [connection signal="timeout" from="SpawnerClock" to="." method="spawn"]

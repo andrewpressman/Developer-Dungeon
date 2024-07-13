@@ -3,12 +3,12 @@
 [ext_resource type="Script" path="res://BreakableObject.gd" id="1_0kvi6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4r2ap"]
-size = Vector2(109.333, 41.1667)
+size = Vector2(150.667, 41.1667)
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_cny8o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2lxv7"]
-size = Vector2(328, 20)
+size = Vector2(454, 20)
 
 [node name="BreakableObject" type="Area2D"]
 scale = Vector2(2, 2)
@@ -21,11 +21,12 @@ shape = SubResource("RectangleShape2D_4r2ap")
 [node name="Object" type="StaticBody2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="Object"]
-position = Vector2(-7.62939e-06, 0)
-scale = Vector2(328, 20)
+position = Vector2(-0.499994, 0)
+scale = Vector2(453, 20)
 texture = SubResource("PlaceholderTexture2D_cny8o")
 
 [node name="ObjectCheck" type="CollisionShape2D" parent="Object"]
+position = Vector2(1, 0)
 shape = SubResource("RectangleShape2D_2lxv7")
 debug_color = Color(0.936703, 1.63645e-05, 0.631087, 0.42)
 
