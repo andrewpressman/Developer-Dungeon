@@ -49,8 +49,8 @@ func _ready():
 	
 	$Camera2D/UI.updateScore()
 	$Camera2D/UI.updateArmor()
-	
-	HasKey = false
+	$Camera2D/UI.updateKey()
+	HasKey = GlobalVariables.HasKey
 	
 func SetCamera():
 	$Camera2D.make_current()
@@ -66,6 +66,9 @@ func GetInput():
 		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
+	$Camera2D/UI.updateArmor()
+	$Camera2D/UI.updateScore()
+	$Camera2D/UI.updateKey()
 	CheckArmor()
 	CheckCollision(delta)
 	if isInvuln:
@@ -153,18 +156,22 @@ func TrapExited():
 
 func ArmorPickup():
 	GlobalVariables.CurrHealth += 1
-	$Camera2D/UI.updateArmor()
 
 func KeyPickup():
 	if !HasKey:
 		HasKey = true
+		GlobalVariables.HasKey = true
+
+func ClearKey():
+	if HasKey:
+		HasKey = false
+		GlobalVariables.HasKey = false
 
 func BasicEnemy(enemy : RigidBody2D):
 	if !isInvuln:
 		GlobalVariables.CurrHealth -= 1
 		if currSpeed == DashSpeed:
 			GlobalVariables.Score += 1
-			$Camera2D/UI.updateScore()
 			enemy.kill()
 		else:
 			Reverse(enemy)

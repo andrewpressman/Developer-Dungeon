@@ -1,11 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://2fg4cqxxdfw1"]
+[gd_scene load_steps=8 format=3 uid="uid://2fg4cqxxdfw1"]
 
 [ext_resource type="PackedScene" uid="uid://b8eev8on1b5wn" path="res://Proof of Concept/player.tscn" id="1_ixhf7"]
 [ext_resource type="Script" path="res://Proof of Concept/Controller.gd" id="1_q7ipu"]
 [ext_resource type="PackedScene" uid="uid://dspor8x38wy17" path="res://Proof of Concept/SlowTrap.tscn" id="3_gcfa5"]
 [ext_resource type="PackedScene" uid="uid://doupdcryw0hvp" path="res://Proof of Concept/breakable_object.tscn" id="4_3txdr"]
-[ext_resource type="PackedScene" uid="uid://msu38tj15mbp" path="res://Proof of Concept/Enemy.tscn" id="5_c23dh"]
+[ext_resource type="PackedScene" uid="uid://bhypri2eyuam" path="res://Proof of Concept/Door.tscn" id="6_43q6x"]
 [ext_resource type="PackedScene" uid="uid://dpgpfvnn33oox" path="res://Proof of Concept/Pickup.tscn" id="6_dms0n"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1a3qb"]
+size = Vector2(902, 141)
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_q7ipu")
@@ -93,25 +96,8 @@ color = Color(0, 0, 0, 1)
 
 [node name="Player" parent="." instance=ExtResource("1_ixhf7")]
 
-[node name="SpawnerClock" type="Timer" parent="."]
-wait_time = 3.0
-
 [node name="BreakableObject" parent="." instance=ExtResource("4_3txdr")]
 position = Vector2(-1, -2198)
-
-[node name="Enemies" type="Node" parent="."]
-
-[node name="Enemy" parent="Enemies" instance=ExtResource("5_c23dh")]
-position = Vector2(952, -3636)
-
-[node name="Enemy2" parent="Enemies" instance=ExtResource("5_c23dh")]
-position = Vector2(952, -2594)
-
-[node name="Enemy3" parent="Enemies" instance=ExtResource("5_c23dh")]
-position = Vector2(-970, -3640)
-
-[node name="Enemy4" parent="Enemies" instance=ExtResource("5_c23dh")]
-position = Vector2(-974, -2567)
 
 [node name="Pickups" type="Node" parent="."]
 
@@ -128,7 +114,18 @@ position = Vector2(370, -480)
 PickupType = 1
 
 [node name="Pickup4" parent="Pickups" instance=ExtResource("6_dms0n")]
-position = Vector2(5, -926)
+position = Vector2(2, -3132)
 PickupType = 2
 
-[connection signal="timeout" from="SpawnerClock" to="." method="spawn"]
+[node name="SpawnTrigger" type="Area2D" parent="."]
+position = Vector2(0, -2434)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnTrigger"]
+position = Vector2(-1, 105)
+shape = SubResource("RectangleShape2D_1a3qb")
+
+[node name="Door" parent="." instance=ExtResource("6_43q6x")]
+position = Vector2(-2, -3786)
+DoorType = 2
+
+[connection signal="body_entered" from="SpawnTrigger" to="." method="spawn"]

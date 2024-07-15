@@ -9,12 +9,13 @@ func _ready():
 
 func onEnter(body):
 	if body.name == "Player":
-		pass #Unlock/open door
-	match DoorType:
-		1:
-			Open()
-		2:
-			Teleport()
+		if GlobalVariables.HasKey == true:
+			body.ClearKey()
+			match DoorType:
+				1:
+					Open()
+				2:
+					Teleport()
 
 
 func Teleport():

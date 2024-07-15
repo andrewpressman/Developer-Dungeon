@@ -15,3 +15,5 @@ var DASH : StringName = "KEY_SPACE"
 
 #player Direction
 var CurrentDirection : Vector2
+
+var HasKey : bool

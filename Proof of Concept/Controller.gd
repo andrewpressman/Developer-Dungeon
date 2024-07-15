@@ -9,6 +9,7 @@ var GameActive : bool
 func _ready():
 	$Player.SetCamera()
 	GlobalVariables.CurrHealth = GlobalVariables.BaseHealth
+	GlobalVariables.HasKey = false
 	GameActive = true
 	
 func _process(delta):
@@ -17,15 +18,24 @@ func _process(delta):
 		$Camera2D.make_current()
 		print("dead")
 	
+func spawn(body):
+	if body.name == "Player":
+		var e1 = Enemy.instantiate()
+		e1.position = Vector2(1212,-3868)
+		add_child(e1)
+		var e2 = Enemy.instantiate()
+		e2.position = Vector2(1175,-2362)
+		add_child(e2)
+		var e3 = Enemy.instantiate()
+		e3.position = Vector2(-1202,-3866)
+		add_child(e3)
+		var e4 = Enemy.instantiate()
+		e4.position = Vector2(-1197,-2344)
+		add_child(e4)
 	
-func spawn():
-	print("spawn")
-	var e = Enemy.instantiate()
-	e.position = Vector2(0,0)
-	add_child(e)
-	
-	var A = Armor.instantiate()
-	var X = randi_range(-100,100)
-	var Y = randi_range(-200,200)
-	A.position = Vector2(X,Y)
-	add_child(A)
+#spawn armor
+#	var A = Armor.instantiate()
+#	var X = randi_range(-100,100)
+#	var Y = randi_range(-200,200)
+#	A.position = Vector2(X,Y)
+#	add_child(A)
