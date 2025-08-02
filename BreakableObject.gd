@@ -1,6 +1,7 @@
 extends Area2D
 
 var player = null
+@export var RequiresKey : bool
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -9,8 +10,13 @@ func _ready():
 
 func onEnter(body):
 	if body.name == "Player":
-		if body.currSpeed == body.DashSpeed:
-			kill()
+		if RequiresKey:
+			if GlobalVariables.HasKey:
+				body.ClearKey()
+				kill()
+		else:
+			if body.currSpeed == body.DashSpeed:
+				kill()
 
 func kill():
 	queue_free()

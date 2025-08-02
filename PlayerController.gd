@@ -190,5 +190,3 @@ func resetInvuln():
 func Reverse(enemy : RigidBody2D):
 	var direction = (enemy.position - position)
 	ReverseDirection = -direction
-
-

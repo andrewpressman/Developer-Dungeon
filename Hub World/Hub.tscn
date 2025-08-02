@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://btobj4s4yhmvx"]
 
-[ext_resource type="Script" path="res://Hub World/Hub.gd" id="1_4elkb"]
+[ext_resource type="Script" uid="uid://bf3jssyxbij7p" path="res://Hub World/Hub.gd" id="1_4elkb"]
 [ext_resource type="PackedScene" uid="uid://b8eev8on1b5wn" path="res://Proof of Concept/player.tscn" id="1_fucvp"]
-[ext_resource type="Script" path="res://Hub World/LevelDoor.gd" id="2_twohm"]
+[ext_resource type="Script" uid="uid://bb6rv7hed3drg" path="res://Hub World/LevelDoor.gd" id="2_twohm"]
 [ext_resource type="Texture2D" uid="uid://u7xre6e6m326" path="res://Assets/TempDoor.png" id="3_010ub"]
 [ext_resource type="PackedScene" uid="uid://doupdcryw0hvp" path="res://Proof of Concept/breakable_object.tscn" id="4_ju6p7"]
 

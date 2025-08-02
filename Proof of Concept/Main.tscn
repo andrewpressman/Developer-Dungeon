@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://2fg4cqxxdfw1"]
 
 [ext_resource type="PackedScene" uid="uid://b8eev8on1b5wn" path="res://Proof of Concept/player.tscn" id="1_ixhf7"]
-[ext_resource type="Script" path="res://Proof of Concept/Controller.gd" id="1_q7ipu"]
+[ext_resource type="Script" uid="uid://vb6d2eluesgf" path="res://Proof of Concept/Controller.gd" id="1_q7ipu"]
 [ext_resource type="PackedScene" uid="uid://dspor8x38wy17" path="res://Proof of Concept/SlowTrap.tscn" id="3_gcfa5"]
 [ext_resource type="PackedScene" uid="uid://doupdcryw0hvp" path="res://Proof of Concept/breakable_object.tscn" id="4_3txdr"]
 [ext_resource type="PackedScene" uid="uid://bhypri2eyuam" path="res://Proof of Concept/Door.tscn" id="6_43q6x"]
@@ -29,75 +29,13 @@ metadata/_edit_use_anchors_ = true
 [node name="Area2D" parent="." instance=ExtResource("3_gcfa5")]
 position = Vector2(-14, -1413)
 
-[node name="Walls" type="Node" parent="."]
-
-[node name="StaticBody2D" type="StaticBody2D" parent="Walls"]
-position = Vector2(-646, -362)
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Walls/StaticBody2D"]
-position = Vector2(-94, 30)
-polygon = PackedVector2Array(2745, 1506, -1750, 1500, -1782, -4170, 3069, -4177, 3070, 1518, 2048, -1810, 2019, -1936, 2019, -3616, -533, -3612, -529, -1944, 283, -1940, 283, -1808, 195, -1808, 197, 862, 1243, 858, 1250, -1811, 1201, -1808, 1201, -1944, 2013, -1942)
-
-[node name="ColorRect" type="ColorRect" parent="Walls"]
-offset_left = -690.0
-offset_top = -2274.0
-offset_right = -540.0
-offset_bottom = 656.0
-color = Color(0, 0, 0, 1)
-
-[node name="ColorRect2" type="ColorRect" parent="Walls"]
-offset_left = 501.0
-offset_top = -2277.0
-offset_right = 651.0
-offset_bottom = 650.0
-color = Color(0, 0, 0, 1)
-
-[node name="ColorRect6" type="ColorRect" parent="Walls"]
-offset_left = 1276.0
-offset_top = -3967.0
-offset_right = 1426.0
-offset_bottom = -2203.0
-color = Color(0, 0, 0, 1)
-
-[node name="ColorRect7" type="ColorRect" parent="Walls"]
-offset_left = -1420.0
-offset_top = -3951.0
-offset_right = -1270.0
-offset_bottom = -2187.0
-color = Color(0, 0, 0, 1)
-
-[node name="ColorRect3" type="ColorRect" parent="Walls"]
-offset_left = -690.0
-offset_top = 521.0
-offset_right = 651.0
-offset_bottom = 657.0
-color = Color(0, 0, 0, 1)
-
-[node name="ColorRect8" type="ColorRect" parent="Walls"]
-offset_left = -1420.0
-offset_top = -4078.0
-offset_right = 1426.0
-offset_bottom = -3942.0
-color = Color(0, 0, 0, 1)
-
-[node name="ColorRect4" type="ColorRect" parent="Walls"]
-offset_left = 452.0
-offset_top = -2277.0
-offset_right = 1426.0
-offset_bottom = -2141.0
-color = Color(0, 0, 0, 1)
-
-[node name="ColorRect5" type="ColorRect" parent="Walls"]
-offset_left = -1420.0
-offset_top = -2274.0
-offset_right = -456.0
-offset_bottom = -2138.0
-color = Color(0, 0, 0, 1)
-
 [node name="Player" parent="." instance=ExtResource("1_ixhf7")]
 
-[node name="BreakableObject" parent="." instance=ExtResource("4_3txdr")]
+[node name="BreakableWall1" parent="." instance=ExtResource("4_3txdr")]
 position = Vector2(-1, -2198)
+
+[node name="AreaDoor1" parent="." instance=ExtResource("4_3txdr")]
+position = Vector2(7, -3957)
 
 [node name="Pickups" type="Node" parent="."]
 
@@ -125,7 +63,195 @@ position = Vector2(-1, 105)
 shape = SubResource("RectangleShape2D_1a3qb")
 
 [node name="Door" parent="." instance=ExtResource("6_43q6x")]
-position = Vector2(-2, -3786)
+position = Vector2(-10, -11024)
 DoorType = 2
+
+[node name="Walls" type="Node" parent="."]
+
+[node name="BorderWall" type="StaticBody2D" parent="Walls"]
+position = Vector2(-646, -362)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Walls/BorderWall"]
+position = Vector2(-94, 30)
+polygon = PackedVector2Array(2745, 1506, -4614, 1123, -4785, -11930, -275, -12196, 5604, -12006, 5509, 1370, 3070, 1518, 2048, -1810, 2019, -1936, 2024, -3609, 1211, -3611, 1207, -4496, 4870, -4494, 4860, -10508, 1140, -10508, 1132, -10873, 324, -10876, 332, -10516, -3384, -10532, -3390, -4531, 289, -4518, 292, -3751, -545, -3751, -529, -1944, 283, -1940, 283, -1808, 195, -1808, 197, 862, 1243, 858, 1250, -1811, 1201, -1808, 1201, -1944, 2013, -1942)
+
+[node name="ColorRect" type="ColorRect" parent="Walls/BorderWall"]
+offset_left = -44.0
+offset_top = -1912.0
+offset_right = 106.0
+offset_bottom = 1018.0
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect2" type="ColorRect" parent="Walls/BorderWall"]
+offset_left = 1147.0
+offset_top = -1915.0
+offset_right = 1297.0
+offset_bottom = 1012.0
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect6" type="ColorRect" parent="Walls/BorderWall"]
+offset_left = 1922.0
+offset_top = -3605.0
+offset_right = 2072.0
+offset_bottom = -1841.0
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect10" type="ColorRect" parent="Walls/BorderWall"]
+offset_left = 1045.0
+offset_top = -10851.0
+offset_right = 1195.0
+offset_bottom = -10485.0
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect12" type="ColorRect" parent="Walls/BorderWall"]
+offset_left = 92.0
+offset_top = -11215.0
+offset_right = 1195.0
+offset_bottom = -10849.0
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect11" type="ColorRect" parent="Walls/BorderWall"]
+offset_left = 83.0
+offset_top = -10855.0
+offset_right = 233.0
+offset_bottom = -10489.0
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect7" type="ColorRect" parent="Walls/BorderWall"]
+offset_left = -774.0
+offset_top = -3589.0
+offset_right = -624.0
+offset_bottom = -1825.0
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect3" type="ColorRect" parent="Walls/BorderWall"]
+offset_left = -44.0
+offset_top = 883.0
+offset_right = 1297.0
+offset_bottom = 1019.0
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect8" type="ColorRect" parent="Walls/BorderWall"]
+anchors_preset = -1
+anchor_left = 1.63542
+anchor_right = 1.63542
+offset_left = 1110.0
+offset_top = -3716.0
+offset_right = 2069.0
+offset_bottom = -3580.0
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect4" type="ColorRect" parent="Walls/BorderWall"]
+offset_left = 1098.0
+offset_top = -1915.0
+offset_right = 2072.0
+offset_bottom = -1779.0
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect5" type="ColorRect" parent="Walls/BorderWall"]
+offset_left = -774.0
+offset_top = -1912.0
+offset_right = 190.0
+offset_bottom = -1776.0
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect9" type="ColorRect" parent="Walls/BorderWall"]
+offset_left = -774.0
+offset_top = -3716.0
+offset_right = 200.0
+offset_bottom = -3580.0
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect13" type="ColorRect" parent="Walls/BorderWall"]
+offset_left = 1110.0
+offset_top = -4471.0
+offset_right = 1260.0
+offset_bottom = -3577.0
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect14" type="ColorRect" parent="Walls/BorderWall"]
+offset_left = 42.0
+offset_top = -4484.0
+offset_right = 192.0
+offset_bottom = -3581.0
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect15" type="ColorRect" parent="Walls/BorderWall"]
+anchors_preset = -1
+anchor_left = 1.63542
+anchor_right = 1.63542
+offset_left = 1256.0
+offset_top = -4466.0
+offset_right = 4795.0
+offset_bottom = -4330.0
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect9" type="ColorRect" parent="Walls/BorderWall/ColorRect15"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.63881
+anchor_top = 0.0147059
+anchor_right = 1.64192
+anchor_bottom = 0.0147059
+offset_left = -6001.75
+offset_top = -6150.0
+offset_right = -2148.75
+offset_bottom = -6014.0
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect10" type="ColorRect" parent="Walls/BorderWall/ColorRect15"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.63542
+anchor_right = 1.63542
+offset_left = -10663.8
+offset_top = -6160.0
+offset_right = -6810.75
+offset_bottom = -6024.0
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect16" type="ColorRect" parent="Walls/BorderWall/ColorRect15"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.63542
+anchor_right = 1.63542
+offset_left = -10544.8
+offset_top = -25.0
+offset_right = -7005.75
+offset_bottom = 111.0
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect17" type="ColorRect" parent="Walls/BorderWall"]
+offset_left = -3639.0
+offset_top = -10514.0
+offset_right = -3489.0
+offset_bottom = -4374.0
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect18" type="ColorRect" parent="Walls/BorderWall"]
+offset_left = 4766.0
+offset_top = -10478.0
+offset_right = 4916.0
+offset_bottom = -4336.0
+color = Color(0, 0, 0, 1)
 
 [connection signal="body_entered" from="SpawnTrigger" to="." method="spawn"]

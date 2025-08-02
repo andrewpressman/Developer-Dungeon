@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bhypri2eyuam"]
 
-[ext_resource type="Script" path="res://Proof of Concept/Door.gd" id="1_v2ao1"]
+[ext_resource type="Script" uid="uid://bmrmoo3htd775" path="res://Proof of Concept/Door.gd" id="1_v2ao1"]
 [ext_resource type="Texture2D" uid="uid://u7xre6e6m326" path="res://Assets/TempDoor.png" id="2_p1kae"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_d48ak"]
